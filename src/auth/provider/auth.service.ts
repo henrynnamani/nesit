@@ -1,16 +1,16 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from 'src/users/provider/users.service';
 
 @Injectable()
 export class AuthService {
-    constructor(
-        @Inject(forwardRef(() => UsersService))
-        private readonly usersService: UsersService
-    ) {}
+  constructor(
+    @Inject(forwardRef(() => UsersService))
+    private readonly usersService: UsersService,
+  ) {}
 
-    public login(email: string, password: string, id: string) {}
+  public login(email: string, password: string, id: string) {}
 
-    public isAuth() {
-        return true
-    }
+  public isAuth() {
+    return true;
+  }
 }

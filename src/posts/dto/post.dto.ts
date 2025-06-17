@@ -12,12 +12,13 @@ import {
   IsString,
   IsUrl,
   Matches,
+  MaxLength,
   MinLength,
   ValidateNested,
 } from 'class-validator';
 import { PostType } from '../enums/postType.enum';
 import { PostStatus } from '../enums/postStatus.enum';
-import { CreatePostMetaOptionDto } from './create-post-meta-option.dto';
+import { CreatePostMetaOptionDto } from '../../meta-options/dto/create-post-meta-option.dto';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class GetPostQueryParamDto {
@@ -34,6 +35,7 @@ export class CreatePostDto {
   })
   @IsString()
   @MinLength(4)
+  @MaxLength(512)
   @IsNotEmpty()
   title: string;
 

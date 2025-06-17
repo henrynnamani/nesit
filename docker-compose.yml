@@ -1,0 +1,18 @@
+version: '3.8'  # Optional, but good to specify
+
+services:
+  nest_blog:
+    image: postgres:latest
+    container_name: nesit
+    restart: on-failure
+    environment:
+      POSTGRES_DB: nest-blog
+      POSTGRES_USER: graey
+      POSTGRES_PASSWORD: pyr@hornet0101
+    volumes:
+      - nest_blog_data:/var/lib/postgresql/data
+    ports:
+      - '5438:5432'
+
+volumes:
+  nest_blog_data:

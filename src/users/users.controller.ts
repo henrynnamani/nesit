@@ -8,7 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UsersService } from './provider/users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { GetUserParamDto } from './dto/get-user.dto';
 import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
@@ -19,7 +19,7 @@ export class UsersController {
 
   @Get('{/:id}')
   @ApiOperation({
-    summary: 'Fetch list of registered users'
+    summary: 'Fetch list of registered users',
   })
   @ApiQuery({
     name: 'limit',
@@ -48,7 +48,7 @@ export class UsersController {
   }
 
   @Post('')
-  createUser(@Body() createUserDto: CreateUserDto) {
-    return createUserDto;
+  async createUser(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.createUser(createUserDto)
   }
 }
