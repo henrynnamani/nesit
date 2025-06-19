@@ -20,12 +20,13 @@ import { PostType } from '../enums/postType.enum';
 import { PostStatus } from '../enums/postStatus.enum';
 import { CreatePostMetaOptionDto } from '../../meta-options/dto/create-post-meta-option.dto';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Tag } from 'src/tags/tag.entity';
 
 export class GetPostQueryParamDto {
   @IsInt()
   @IsOptional()
-  // @Type(() => Number)
-  userId: string;
+  @Type(() => Number)
+  userId: number;
 }
 
 export class CreatePostDto {
@@ -104,44 +105,39 @@ export class CreatePostDto {
   publishOn?: Date;
 
   @ApiPropertyOptional({
-    description: 'Tags associated with post',
-    example: ['war', 'gaza'],
+    description: 'Array of tags ID',
+    example: [3, 4, 2],
   })
   @IsArray()
   @IsOptional()
-  @IsString({ each: true })
-  @MinLength(3, { each: true })
-  tags?: string[];
+  @IsInt({ each: true })
+  tags?: number[];
 
   @ApiPropertyOptional({
-    type: 'array',
+    type: CreatePostMetaOptionDto,
     required: false,
-    description: 'Meta options associated with post',
-    example: [
-      {
-        key: 'rating',
-        value: 20,
-      },
-    ],
     items: {
       type: 'object',
       properties: {
-        key: {
-          type: 'string',
-          description: 'The key can be any string identifier',
-          example: 'sidebarEnabled',
-        },
-        value: {
-          type: 'any',
-          description: 'It could take any value',
-          example: false,
+        metaValue: {
+          type: 'object',
+          description: 'Meta value is a JSON string',
+          example: '{ "sideBarEnabled": true }',
         },
       },
     },
   })
-  @IsArray()
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => CreatePostMetaOptionDto)
-  metaOptions: CreatePostMetaOptionDto[];
+  metaOptions?: CreatePostMetaOptionDto;
+
+  @ApiProperty({
+    type: 'integer',
+    required: true,
+    example: 4,
+  })
+  @IsInt()
+  @IsNotEmpty()
+  authorId: number;
 }

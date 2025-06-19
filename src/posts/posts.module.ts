@@ -2,10 +2,18 @@ import { Module } from '@nestjs/common';
 import { PostsService } from './providers/posts.service';
 import { PostsController } from './posts.controller';
 import { UsersModule } from 'src/users/users.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { MetaOption } from 'src/meta-options/meta-options.entity';
+import { Post } from './post.entity';
+import { TagsModule } from 'src/tags/tags.module';
 
 @Module({
+  imports: [
+    TypeOrmModule.forFeature([Post, MetaOption]),
+    UsersModule,
+    TagsModule,
+  ],
   controllers: [PostsController],
   providers: [PostsService],
-  imports: [UsersModule]
 })
 export class PostsModule {}

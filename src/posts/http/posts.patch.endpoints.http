@@ -1,0 +1,16 @@
+PATCH http://localhost:3000/posts
+Content-Type: application/json
+
+{
+    "id": 2,
+    "title": "Iran supreme leader might be killed soon",
+    "postType": "post",
+    "slug": "iran-supreme-leader",
+    "status": "draft",
+    "content": "The war condition is currently brewing up amongst both party",
+    "publishOn": "2025-06-14T10:32:45.000Z",
+    "tags": [1, 2],
+    "metaOptions": {
+        "metaValue": "{\"sideBarEnabled\": true, \"footerActive\": false }"
+    }
+}

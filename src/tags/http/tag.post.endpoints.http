@@ -1,0 +1,9 @@
+POST http://localhost:3000/tags
+Content-Type: application/json
+
+{
+    "name": "football",
+    "slug": "footbal",
+    "description": "A tag related to footbal"
+
+}

@@ -2,19 +2,17 @@ POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-    "title": "Israel et Iran War",
+    "title": "United State has finally joined the war",
     "postType": "post",
-    "slug": "israel-et-iran-war",
+    "slug": "usa-israel-iran-war",
     "status": "draft",
     "content": "The war condition is currently brewing up amongst both party",
     "schema": "{\r\n \"@context\": \"https:\/\/schema.org\",\r\n \"@type\": \"Person\" \r\n}",
     "featuredImageUrl": "https://i.pinimg.com/736x/e4/4a/a1/e44aa117af8e511fc7353735e963f6b8.jpg",
     "publishOn": "2025-06-14T10:32:45.000Z",
-    "tags": ["war", "gaza", "iran"],
-    "metaOptions": [
-        {
-            "key": "rating",
-            "value": 20
-        }
-    ]
+    "tags": [1],
+    "metaOptions": {
+        "metaValue": "{\"sideBarEnabled\": true, \"footerActive\": true }"
+    },
+    "authorId": 1
 }
