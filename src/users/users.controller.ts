@@ -12,10 +12,15 @@ import { UsersService } from './provider/users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { GetUserParamDto } from './dto/get-user.dto';
 import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
+import { CreateManyUserDto } from './dto/create-many-user.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private configService: ConfigService,
+  ) {}
 
   @Get('{/:id}')
   @ApiOperation({
@@ -47,8 +52,13 @@ export class UsersController {
     return this.usersService.findAll(getUserParamDto, limit, page);
   }
 
+  @Post('create-many')
+  async createManyUser(@Body() createUsersDto: CreateManyUserDto) {
+    return this.usersService.createMany(createUsersDto);
+  }
+
   @Post('')
   async createUser(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.createUser(createUserDto)
+    return this.usersService.createUser(createUserDto);
   }
 }

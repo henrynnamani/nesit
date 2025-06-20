@@ -1,12 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  RequestTimeoutException,
+} from '@nestjs/common';
 import { UsersService } from 'src/users/provider/users.service';
 import { Repository } from 'typeorm';
 import { Post } from '../post.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreatePostDto } from '../dto/post.dto';
-import { MetaOption } from 'src/meta-options/meta-options.entity';
 import { TagsService } from 'src/tags/provider/tags.service';
 import { PatchPostDto } from '../dto/patch-post.dto';
+import { Tag } from 'src/tags/tag.entity';
 
 @Injectable()
 export class PostsService {
@@ -60,15 +65,38 @@ export class PostsService {
   }
 
   public async update(patchPostDto: PatchPostDto) {
-    let tags =
-      patchPostDto.tags &&
-      (await this.tagsService.findMultipleTags(patchPostDto.tags));
+    let tags: Tag[] | undefined;
+    let post: Post | null;
 
-    let post = await this.postRepository.findOneBy({
-      id: patchPostDto.id,
-    });
+    try {
+      tags =
+        patchPostDto.tags &&
+        (await this.tagsService.findMultipleTags(patchPostDto.tags));
+    } catch (err) {
+      throw new RequestTimeoutException('Unable to find tags', {
+        description: 'Error connecting to database',
+      });
+    }
 
-    if (!post) return;
+    if (!tags || tags.length !== patchPostDto.tags!.length) {
+      throw new BadRequestException(
+        'Please check that you include correct tags',
+      );
+    }
+
+    try {
+      post = await this.postRepository.findOneBy({
+        id: patchPostDto.id,
+      });
+    } catch (err) {
+      throw new RequestTimeoutException('Unable to find tags', {
+        description: 'Error connecting to database',
+      });
+    }
+
+    if (!post) {
+      throw new NotFoundException('Post does not exist');
+    }
 
     post.title = patchPostDto.title ?? post.title;
     post.content = patchPostDto.content ?? post.content;
@@ -81,6 +109,14 @@ export class PostsService {
 
     post.tags = tags;
 
-    return await this.postRepository.save(post);
+    try {
+      await this.postRepository.save(post);
+    } catch (err) {
+      throw new RequestTimeoutException('Unable to find tags', {
+        description: 'Error connecting to database',
+      });
+    }
+
+    return post;
   }
 }
