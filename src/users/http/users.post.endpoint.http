@@ -2,8 +2,36 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-"firstName": "Henry",
-"lastName": "Nnamani",
-"email": "henry@gmail.com",
+"firstName": "fela",
+"lastName": "kuti",
+"email": "fela@gmail.com",
 "password": "Passowrd#1"
+}
+
+POST http://localhost:3000/users/create-many
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiYW5nZWxhQGdtYWlsLmNvbSIsImlhdCI6MTc1MDU1MzU2NSwiZXhwIjoxNzUwNTU3MTY1LCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.MuR-U1hJsxGKPTNnxQKyL61eTG_FPkrw28nE4MpuSGE
+
+
+{
+    "users": [
+    {
+"firstName": "delight",
+"lastName": "ifunanya",
+"email": "delight@gmail.com",
+"password": "Passowrd#1"
+},
+{
+"firstName": "john",
+"lastName": "terry",
+"email": "john@gmail.com",
+"password": "Passowrd#1"
+},
+{
+"firstName": "francis",
+"lastName": "nonso",
+"email": "francis@gmail.com",
+"password": "Passowrd#1"
+}
+]
 }

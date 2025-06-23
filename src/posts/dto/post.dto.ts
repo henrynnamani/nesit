@@ -20,7 +20,6 @@ import { PostType } from '../enums/postType.enum';
 import { PostStatus } from '../enums/postStatus.enum';
 import { CreatePostMetaOptionDto } from '../../meta-options/dto/create-post-meta-option.dto';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Tag } from 'src/tags/tag.entity';
 
 export class GetPostQueryParamDto {
   @IsInt()
@@ -131,13 +130,4 @@ export class CreatePostDto {
   @ValidateNested({ each: true })
   @Type(() => CreatePostMetaOptionDto)
   metaOptions?: CreatePostMetaOptionDto;
-
-  @ApiProperty({
-    type: 'integer',
-    required: true,
-    example: 4,
-  })
-  @IsInt()
-  @IsNotEmpty()
-  authorId: number;
 }

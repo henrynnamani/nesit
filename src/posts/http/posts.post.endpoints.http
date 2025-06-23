@@ -1,18 +1,19 @@
 POST http://localhost:3000/posts
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksImVtYWlsIjoiZmVsYUBnbWFpbC5jb20iLCJpYXQiOjE3NTA2NjIwNjQsImV4cCI6MTc1MDY2NTY2NCwiYXVkIjoibG9jYWxob3N0OjMwMDAiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMCJ9.esZpQm61bwgcw0Hf5IJdsGSXEBgXPP-nxagljsVTRag
+
 
 {
-    "title": "United State has finally joined the war",
+    "title": "United State strike Iran 3 Nuclear Facilities",
     "postType": "post",
-    "slug": "usa-israel-iran-war",
+    "slug": "usa-iran-war",
     "status": "draft",
     "content": "The war condition is currently brewing up amongst both party",
     "schema": "{\r\n \"@context\": \"https:\/\/schema.org\",\r\n \"@type\": \"Person\" \r\n}",
     "featuredImageUrl": "https://i.pinimg.com/736x/e4/4a/a1/e44aa117af8e511fc7353735e963f6b8.jpg",
     "publishOn": "2025-06-14T10:32:45.000Z",
-    "tags": [1],
+    "tags": [2],
     "metaOptions": {
         "metaValue": "{\"sideBarEnabled\": true, \"footerActive\": true }"
-    },
-    "authorId": 1
+    }
 }
