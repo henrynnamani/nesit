@@ -4,11 +4,15 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class BcryptProvider implements HashingProvider {
-  comparePassword(data: string | Buffer, encrypted: string): Promise<boolean> {
-    throw new Error('Method not implement');
+  async comparePassword(
+    data: string | Buffer,
+    encrypted: string,
+  ): Promise<boolean> {
+    return await bcrypt.compare(data, encrypted);
   }
 
-  hashPassword(data: string | Buffer): Promise<string> {
-    throw new Error('Method not implement');
+  async hashPassword(data: string | Buffer): Promise<string> {
+    const salt = await bcrypt.genSalt();
+    return bcrypt.hash(data, salt);
   }
 }

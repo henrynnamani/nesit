@@ -1,7 +1,7 @@
 import { IsArray, IsNotEmpty, ValidateNested } from 'class-validator';
 import { User } from '../user.entity';
-import { CreateUserDto } from './create-user.dto';
 import { Type } from 'class-transformer';
+import { CreateUserDto } from './create-user.dto';
 
 export class CreateManyUserDto {
   @IsArray()
@@ -9,6 +9,6 @@ export class CreateManyUserDto {
   @ValidateNested({
     each: true,
   })
-  @Type(() => User)
-  users: User[];
+  @Type(() => CreateUserDto)
+  users: CreateUserDto[];
 }

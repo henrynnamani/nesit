@@ -15,6 +15,11 @@ import { ConfigType } from '@nestjs/config';
 import profileConfig from '../config/profile.config';
 import { UsersCreateManyProvider } from './users-create-many.provider';
 import { CreateManyUserDto } from '../dto/create-many-user.dto';
+import { CreateUserProvider } from './create-user.provider';
+import { FindOneUserByEmailProvider } from './find-one-user-by-email.provider';
+import { FindOneByGoogleIdProvider } from '../providers/find-one-by-google-id.provider';
+import { CreateGoogleUserProvider } from '../providers/create-google-user.provider';
+import { GoogleUser } from '../interfaces/google-user.interface';
 
 /**
  * User connection class and business logic handling
@@ -25,41 +30,17 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private readonly createUserProvider: CreateUserProvider,
     private readonly usersCreateManyProvider: UsersCreateManyProvider,
     @Inject(profileConfig.KEY)
     private readonly profileConfiguration: ConfigType<typeof profileConfig>,
+    private readonly findOneByEmailProvider: FindOneUserByEmailProvider,
+    private readonly findOneByGoogleIdProvider: FindOneByGoogleIdProvider,
+    private readonly createGoogleUserProvider: CreateGoogleUserProvider,
   ) {}
 
   async createUser(createUserDto: CreateUserDto) {
-    let existingUser: User | null;
-
-    try {
-      existingUser = await this.userRepository.findOne({
-        where: { email: createUserDto.email },
-      });
-    } catch (err) {
-      throw new RequestTimeoutException(
-        'Unable to process request at the moment',
-        {
-          description: 'Error connecting to the database',
-        },
-      );
-    }
-
-    if (existingUser)
-      throw new BadRequestException('User with email already exists');
-
-    const user = this.userRepository.create(createUserDto);
-
-    try {
-      await this.userRepository.save(user);
-    } catch (err) {
-      throw new RequestTimeoutException('There was an error saving user', {
-        description: 'Error connecting to database',
-      });
-    }
-
-    return user;
+    return this.createUserProvider.createUser(createUserDto);
   }
 
   /** method returns all user */
@@ -103,5 +84,17 @@ export class UsersService {
 
   public async createMany(createUsersDto: CreateManyUserDto) {
     return this.usersCreateManyProvider.createMany(createUsersDto);
+  }
+
+  public async findOneByEmail(email: string) {
+    return await this.findOneByEmailProvider.findUserByEmail(email);
+  }
+
+  public async findOneByGoogleID(googleId: string) {
+    return await this.findOneByGoogleIdProvider.findOneByGoogleId(googleId);
+  }
+
+  public async createGoogleUser(googleUser: GoogleUser) {
+    return await this.createGoogleUserProvider.createGoogleUser(googleUser);
   }
 }

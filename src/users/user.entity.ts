@@ -1,3 +1,4 @@
+import { ApiTooManyRequestsResponse } from '@nestjs/swagger';
 import { Post } from 'src/posts/post.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -31,9 +32,15 @@ export class User {
   @Column({
     type: 'varchar',
     length: 96,
-    nullable: false,
+    nullable: true,
   })
-  password: string;
+  password?: string;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  googleId?: string;
 
   @OneToMany(() => Post, (post) => post.author)
   posts: Post[];
