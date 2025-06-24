@@ -17,6 +17,9 @@ import { UsersCreateManyProvider } from './users-create-many.provider';
 import { CreateManyUserDto } from '../dto/create-many-user.dto';
 import { CreateUserProvider } from './create-user.provider';
 import { FindOneUserByEmailProvider } from './find-one-user-by-email.provider';
+import { FindOneByGoogleIdProvider } from '../providers/find-one-by-google-id.provider';
+import { CreateGoogleUserProvider } from '../providers/create-google-user.provider';
+import { GoogleUser } from '../interfaces/google-user.interface';
 
 /**
  * User connection class and business logic handling
@@ -32,6 +35,8 @@ export class UsersService {
     @Inject(profileConfig.KEY)
     private readonly profileConfiguration: ConfigType<typeof profileConfig>,
     private readonly findOneByEmailProvider: FindOneUserByEmailProvider,
+    private readonly findOneByGoogleIdProvider: FindOneByGoogleIdProvider,
+    private readonly createGoogleUserProvider: CreateGoogleUserProvider,
   ) {}
 
   async createUser(createUserDto: CreateUserDto) {
@@ -83,5 +88,13 @@ export class UsersService {
 
   public async findOneByEmail(email: string) {
     return await this.findOneByEmailProvider.findUserByEmail(email);
+  }
+
+  public async findOneByGoogleID(googleId: string) {
+    return await this.findOneByGoogleIdProvider.findOneByGoogleId(googleId);
+  }
+
+  public async createGoogleUser(googleUser: GoogleUser) {
+    return await this.createGoogleUserProvider.createGoogleUser(googleUser);
   }
 }
