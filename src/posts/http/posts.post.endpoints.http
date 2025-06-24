@@ -1,10 +1,10 @@
 POST http://localhost:3000/posts
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksImVtYWlsIjoiZmVsYUBnbWFpbC5jb20iLCJpYXQiOjE3NTA2NjIwNjQsImV4cCI6MTc1MDY2NTY2NCwiYXVkIjoibG9jYWxob3N0OjMwMDAiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMCJ9.esZpQm61bwgcw0Hf5IJdsGSXEBgXPP-nxagljsVTRag
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksImVtYWlsIjoiZmVsYUBnbWFpbC5jb20iLCJpYXQiOjE3NTA3NjMyNTAsImV4cCI6MTc1MDc2Njg1MCwiYXVkIjoibG9jYWxob3N0OjMwMDAiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMCJ9.4nPhBQybAZNz1NL16EO6wsEYV9xamyYZNAj8M8TTIUk
 
 
 {
-    "title": "United State strike Iran 3 Nuclear Facilities",
+    "title": "Donald trump has called for a complete cease-fire",
     "postType": "post",
     "slug": "usa-iran-war",
     "status": "draft",
