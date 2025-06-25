@@ -43,11 +43,7 @@ export class UploadsService {
         size: file.size,
       };
 
-      console.log(uploadFile);
-
       const upload = this.uploadRepository.create(uploadFile);
-
-      console.log(upload);
 
       return await this.uploadRepository.save(upload);
     } catch (err) {
