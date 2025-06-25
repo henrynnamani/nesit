@@ -5,7 +5,13 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiHeaders, ApiOperation } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiHeaders,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { Express } from 'express';
 import { UploadsService } from './providers/uploads.service';
 
@@ -13,10 +19,20 @@ import { UploadsService } from './providers/uploads.service';
 export class UploadsController {
   constructor(private readonly uploadsService: UploadsService) {}
   @UseInterceptors(FileInterceptor('file'))
-  @ApiHeaders([
-    { name: 'Content-Type', description: 'multipart/form-data' },
-    { name: 'Authorization', description: 'Bearer' },
-  ])
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'The image file to upload',
+        },
+      },
+    },
+  })
   @ApiOperation({
     summary: 'Upload Image to the server',
   })
