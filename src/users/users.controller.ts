@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   DefaultValuePipe,
   Get,
@@ -7,7 +8,7 @@ import {
   ParseIntPipe,
   Post,
   Query,
-  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './provider/users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -63,6 +64,7 @@ export class UsersController {
 
   @Post('')
   @Auth(AuthType.None)
+  @UseInterceptors(ClassSerializerInterceptor)
   async createUser(@Body() createUserDto: CreateUserDto) {
     return this.usersService.createUser(createUserDto);
   }
