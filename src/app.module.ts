@@ -19,6 +19,7 @@ import jwtConfig from './auth/config/jwt.config';
 import { AuthenticationGuard } from './auth/guards/authentication/authentication.guard';
 import { AccessTokenGuard } from './auth/guards/accessToken/access-token.guard';
 import { DataResponseInterceptor } from './common/interceptors/data-response/data-response.interceptor';
+import { UploadsModule } from './uploads/uploads.module';
 
 const ENV = process.env.NODE_ENV;
 
@@ -52,6 +53,7 @@ const ENV = process.env.NODE_ENV;
     PaginationModule,
     ConfigModule.forFeature(jwtConfig),
     JwtModule.registerAsync(jwtConfig.asProvider()),
+    UploadsModule,
   ],
   controllers: [AppController, TagsController],
   providers: [
