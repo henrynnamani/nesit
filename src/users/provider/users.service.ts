@@ -32,8 +32,6 @@ export class UsersService {
     private userRepository: Repository<User>,
     private readonly createUserProvider: CreateUserProvider,
     private readonly usersCreateManyProvider: UsersCreateManyProvider,
-    @Inject(profileConfig.KEY)
-    private readonly profileConfiguration: ConfigType<typeof profileConfig>,
     private readonly findOneByEmailProvider: FindOneUserByEmailProvider,
     private readonly findOneByGoogleIdProvider: FindOneByGoogleIdProvider,
     private readonly createGoogleUserProvider: CreateGoogleUserProvider,
