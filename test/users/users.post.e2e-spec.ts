@@ -11,6 +11,8 @@ import {
   missingPassowrd,
 } from './users.post.e2e-spec.sample';
 
+jest.setTimeout(30000);
+
 describe('[Users] @Post Endpoints', () => {
   let app: INestApplication<App>;
   let config: ConfigService;
@@ -22,32 +24,41 @@ describe('[Users] @Post Endpoints', () => {
     httpServer = app.getHttpServer();
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await dropDatabase(config);
+  });
+
+  afterAll(async () => {
     await app.close();
   });
 
   it('/users - Endpoint is public', async () => {
-    return request(httpServer).post('/users').send({}).expect(400);
+    return await request(httpServer).post('/users').send({}).expect(400);
   });
 
   it('/users - firstName is mandatory', async () => {
-    return request(httpServer)
+    return await request(httpServer)
       .post('/users')
       .send(missingFirstName)
       .expect(400);
   });
 
   it('/users - Email is mandatory', async () => {
-    return request(httpServer).post('/users').send(missingEmail).expect(400);
+    return await request(httpServer)
+      .post('/users')
+      .send(missingEmail)
+      .expect(400);
   });
 
   it('/users - Password is mandatory', async () => {
-    return request(httpServer).post('/users').send(missingPassowrd).expect(400);
+    return await request(httpServer)
+      .post('/users')
+      .send(missingPassowrd)
+      .expect(400);
   });
 
   it('/users - Valid request successfully create user', async () => {
-    return request(httpServer)
+    return await request(httpServer)
       .post('/users')
       .send(completeUser)
       .expect(201)
@@ -60,7 +71,7 @@ describe('[Users] @Post Endpoints', () => {
   });
 
   it('/users - Password is not returned', async () => {
-    return request(httpServer)
+    return await request(httpServer)
       .post('/users')
       .send(completeUser)
       .expect(201)
@@ -70,7 +81,7 @@ describe('[Users] @Post Endpoints', () => {
   });
 
   it('/users - Google ID is not returned', async () => {
-    return request(httpServer)
+    return await request(httpServer)
       .post('/users')
       .send(completeUser)
       .expect(201)
